@@ -57,6 +57,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Configure logout
                 .and().logout().logoutSuccessUrl(LOGOUT_SUCCESS_URL);
     }
+    
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        UserDetails user = User.withUsername("user")
+                .password("{noop}userpass")
+                .roles("USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(user);
+    }
 
     /**
      * Allows access to static resources, bypassing Spring Security.
